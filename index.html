@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        /* Default Light Theme */
+        --color-primary: 79 70 229;
+        --color-primary-hover: 67 56 202;
+        --color-background: 249 250 251;
+        --color-surface: 255 255 255;
+        --color-border: 229 231 235;
+        --color-text: 17 24 39;
+        --color-text-secondary: 107 114 128;
+        --color-handle: 209 213 219;
+      }
+      .dark {
+        /* Dark Theme */
+        --color-primary: 79 70 229;
+        --color-primary-hover: 67 56 202;
+        --color-background: 17 24 39;
+        --color-surface: 31 41 55;
+        --color-border: 55 65 81;
+        --color-text: 229 231 235;
+        --color-text-secondary: 156 163 175;
+        --color-handle: 75 85 99;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: 'rgb(var(--color-primary) / <alpha-value>)',
+              'primary-hover': 'rgb(var(--color-primary-hover) / <alpha-value>)',
+              background: 'rgb(var(--color-background) / <alpha-value>)',
+              surface: 'rgb(var(--color-surface) / <alpha-value>)',
+              border: 'rgb(var(--color-border) / <alpha-value>)',
+              text: 'rgb(var(--color-text) / <alpha-value>)',
+              'text-secondary': 'rgb(var(--color-text-secondary) / <alpha-value>)',
+              handle: 'rgb(var(--color-handle) / <alpha-value>)',
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Monaco Editor Loader -->
+    <script>
+        window.MonacoEnvironment = {
+            getWorkerUrl: function (moduleId, label) {
+                const workers = {
+                    json: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/language/json/json.worker.js',
+                    css: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/language/css/css.worker.js',
+                    html: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/language/html/html.worker.js',
+                    ts: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/language/typescript/ts.worker.js',
+                    editor: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/editor/editor.worker.js'
+                };
+                if (label === 'json') return workers.json;
+                if (['css', 'scss', 'less'].includes(label)) return workers.css;
+                if (['html', 'handlebars', 'razor'].includes(label)) return workers.html;
+                if (['typescript', 'javascript'].includes(label)) return workers.ts;
+                return workers.editor;
+            }
+        };
+    </script>
+    <script type="importmap">
+    {
+      "imports": {
+        "react/": "https://esm.sh/react@18.2.0/",
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+        "@google/genai": "https://aistudiocdn.com/@google/genai@^1.28.0",
+        "react-resizable-panels": "https://esm.sh/react-resizable-panels@2.0.19?deps=react@18.2.0",
+        "@monaco-editor/react": "https://esm.sh/@monaco-editor/react@4.6.0?deps=react@18.2.0"
+      }
+    }
+    </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-background">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
